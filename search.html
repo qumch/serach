@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>qumch的搜索引擎</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<style>
+	*{
+		margin:0;
+		padding:0;
+		font-family: "微软雅黑";
+	}
+	.title{
+		font-size:26px;
+		width:50%;
+		text-align:center;
+		margin:150px auto;
+	}
+	.flx{
+		display:flex;
+		width:33%;
+		height:32px;
+		margin:auto;
+	}
+	.search{
+		flex:5;
+		height:100%;
+	}
+	.bt{
+		flex: 1;
+	    background-color: #3385ff;
+	    color: white;
+	    text-align: center;
+	    line-height: 28px;
+	    width: 100px;
+	    border: 2px solid #3385FF;
+	    height: 100%;
+	    border-color:#3385FF;
+	    margin-left:1px;
+	    cursor:pointer;
+	}
+	.searchInput{
+		width:100%;
+		height:100%;
+		line-height: 16px;
+   		font-size: 16px;
+   		text-indent:10px;
+
+
+	}
+	input:focus{
+		border-width:1px solid #3385ff;
+		
+		outline-offset: -2px;
+		
+	}
+	.inputss{
+		height:100%;
+		margin-bottom:5px;
+	}
+	#inner{
+		display:none;
+		width:100%;
+		border:1px solid #DDD;
+		border-top: 0;
+	}
+	#inner>li{
+		text-decoration:none;
+		list-style-type: none;
+		text-indent:10px;
+		height:28px;
+		line-height:28px;
+	}
+	#inner>li>a{
+		text-decoration: none;
+		color:black;
+		width:100%;
+	}
+	#inner>li:hover{
+		background-color:#EEE;
+	}
+	</style>
+
+</head>
+<body>
+	<div class="title">search by qumch</div>
+	<div class="flx">
+		<div class="search">
+			<div class="inputss"><input id="inputs" class="searchInput"  type="text"  /></div>
+			<ul id="inner">
+				
+			</ul>
+		</div>
+		<div onclick="search()" class="bt">搜&nbsp;&nbsp;&nbsp;索</div>
+	</div>
+</body>
+<script>
+		var ul=document.getElementById("inner")
+		var inp=document.getElementById("inputs")
+		
+		inp.onkeyup=function(){
+			
+			ul.style.display=inp.value ? "block" : "none"
+
+			var scripts=document.createElement("script")
+			scripts.src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+inp.value+"&cb=qumch"
+			document.body.appendChild(scripts)
+
+
+		}
+		function qumch(myjson){
+		console.log(myjson)
+		ul.innerHTML=""
+			for(var i=0;i<myjson.s.length;i++){
+				
+				var li=document.createElement("li")
+				li.innerHTML="<a href=https://www.baidu.com/s?wd="+myjson.s[i]+">"+myjson.s[i]+"</a>"
+				ul.appendChild(li)
+			}
+			
+		}
+		function search (){
+			
+			document.getElementsByTagName("a")[0].click();
+		}
+	</script>
+</html>
